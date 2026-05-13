@@ -3,176 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الفهرس الإسلامي الشامل</title>
+    <title>نور الإسلام • المنصة الشاملة</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1b4332;
-            --accent-color: #d4af37;
-            --bg-color: #081c15;
-            --text-color: #e9ecef;
-            --card-bg: #1b433233;
+            --primary: #0f2c22;
+            --accent: #d4af37;
+            --gold: #e8c670;
+            --bg: #081c15;
+            --card: rgba(27, 67, 50, 0.35);
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
+            background: linear-gradient(180deg, #081c15 0%, #0a241c 100%);
+            color: #e9ecef;
             padding: 15px;
-            padding-bottom: 50px;
+            padding-bottom: 80px;
         }
-
         header {
             text-align: center;
             padding: 20px 0;
-            border-bottom: 2px solid var(--accent-color);
+            background: rgba(27, 67, 50, 0.6);
+            border-radius: 16px;
             margin-bottom: 20px;
+            border: 1px solid var(--accent);
         }
-
         header h1 {
-            color: var(--accent-color);
-            font-size: 24px;
-            margin: 0;
+            font-size: 28px;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        .subtitle {
+            color: #a8c3b5;
+            font-size: 15px;
+            margin-top: 5px;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--accent-color);
-            background: #ffffff11;
-            color: white;
-            margin-bottom: 20px;
-            box-sizing: border-box;
+        .hero {
+            background: linear-gradient(135deg, #1b4332, #0f2c22);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 1px solid var(--accent);
+        }
+        .daily-verse {
+            font-size: 17px;
+            font-style: italic;
+            color: #d4d4d4;
+            margin: 12px 0;
+        }
+
+        .ai-chat-btn {
+            background: linear-gradient(90deg, #d4af37, #f1d38a);
+            color: #0f2c22;
+            font-weight: bold;
+            padding: 16px 24px;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .section-title {
+            color: var(--accent);
+            font-size: 20px;
+            margin: 30px 0 15px;
             display: flex;
             align-items: center;
-            color: var(--accent-color);
-            font-weight: bold;
-            margin: 25px 0 15px;
-            font-size: 18px;
-        }
-
-        .section-title::before {
-            content: "∷ ";
-            margin-left: 8px;
+            gap: 10px;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
         }
 
         .item-card {
-            background: var(--card-bg);
-            border: 1px solid #ffffff11;
-            padding: 15px;
-            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 18px 12px;
             text-align: center;
+            transition: all 0.3s;
             cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
-
-        .item-card:active {
-            transform: scale(0.95);
-            border-color: var(--accent-color);
+        .item-card:hover, .item-card:active {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
         }
-
-        .item-card span {
-            font-size: 14px;
-            color: #ddd;
+        .item-card i {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: var(--gold);
         }
-
         .item-card b {
             display: block;
-            margin-bottom: 5px;
-            color: var(--accent-color);
+            color: white;
+            font-size: 15.5px;
+        }
+        .item-card span {
+            font-size: 13px;
+            color: #a8c3b5;
         }
 
-        .footer-note {
+        .search-box {
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            border: 2px solid var(--accent);
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
             text-align: center;
-            font-size: 12px;
-            margin-top: 40px;
-            opacity: 0.5;
+            margin-top: 50px;
+            opacity: 0.6;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>◈ نور الإسلام ◈</h1>
+        <p class="subtitle">المنصة الإسلامية الشاملة بالذكاء الاصطناعي</p>
+    </header>
 
-<header>
-    <h1>◈ الفهرس الإسلامي الشامل ◈</h1>
-</header>
+    <!-- Hero + الآية اليومية -->
+    <div class="hero">
+        <h3>آية اليوم</h3>
+        <p class="daily-verse">"وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مِنْ أَمْرِهِ يُسْرًا"</p>
+        <small>سورة الطلاق - 4</small>
+    </div>
 
-<input type="text" id="searchInput" class="search-box" placeholder="ابحث عن سورة، ذكر، أو خدمة..." onkeyup="search()">
+    <!-- زر الذكاء الاصطناعي الإسلامي (الأهم) -->
+    <div class="ai-chat-btn" onclick="startAIChat()">
+        <i class="fas fa-robot"></i>
+        <span>اسأل نور الإسلام (AI إسلامي)</span>
+    </div>
 
-<!-- قسم القرآن الكريم -->
-<div class="section-title">المصحف الشريف</div>
-<div class="grid-container">
-    <div class="item-card" onclick="sendCmd('القرآن الكريم كامل')"><b>📖 القرآن الكريم</b><span>قراءة واستماع</span></div>
-    <div class="item-card" onclick="sendCmd('تفسير الجلالين')"><b>◈ التفسير</b><span>معاني الكلمات</span></div>
-    <div class="item-card" onclick="sendCmd('المصحف المعلم')"><b>◈ المصحف المعلم</b><span>للحفظ والترتيل</span></div>
-    <div class="item-card" onclick="sendCmd('البحث في القرآن')"><b>◈ بحث سريع</b><span>آية أو كلمة</span></div>
-</div>
+    <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن أي شيء... (سورة، حديث، فتوى، تفسير...)" onkeyup="search()">
 
-<!-- قسم الأذكار -->
-<div class="section-title">حصن المسلم</div>
-<div class="grid-container">
-    <div class="item-card" onclick="sendCmd('أذكار الصباح')"><b>◈ أذكار الصباح</b><span>وقت الشروق</span></div>
-    <div class="item-card" onclick="sendCmd('أذكار المساء')"><b>◈ أذكار المساء</b><span>وقت الغروب</span></div>
-    <div class="item-card" onclick="sendCmd('أذكار النوم')"><b>◈ أذكار النوم</b><span>قبل المبيت</span></div>
-    <div class="item-card" onclick="sendCmd('أدعية نبوية')"><b>◈ جوامع الدعاء</b><span>من السنة</span></div>
-</div>
+    <!-- قسم القرآن -->
+    <div class="section-title"><i class="fas fa-book-quran"></i> المصحف الشريف</div>
+    <div class="grid-container">
+        <div class="item-card" onclick="sendCmd('القرآن كامل مع التفسير')"><i class="fas fa-book"></i><b>القرآن الكريم</b><span>قراءة + استماع</span></div>
+        <div class="item-card" onclick="sendCmd('تفسير الجلالين')"><i class="fas fa-comment-dots"></i><b>تفسير الجلالين</b><span>مفصل</span></div>
+        <div class="item-card" onclick="sendCmd('المصحف المعلم')"><i class="fas fa-graduation-cap"></i><b>المصحف المعلم</b><span>حفظ وتجويد</span></div>
+        <div class="item-card" onclick="sendCmd('البحث في القرآن')"><i class="fas fa-search"></i><b>بحث ذكي</b><span>بالكلمة أو الموضوع</span></div>
+        <div class="item-card" onclick="sendCmd('تلاوات مميزة')"><i class="fas fa-headphones"></i><b>تلاوات صوتية</b><span>مشاهير القراء</span></div>
+    </div>
 
-<!-- قسم السيرة والأحاديث -->
-<div class="section-title">السنة النبوية</div>
-<div class="grid-container">
-    <div class="item-card" onclick="sendCmd('الأربعون النووية')"><b>◈ 40 نووية</b><span>متن وشرح</span></div>
-    <div class="item-card" onclick="sendCmd('صحيح البخاري')"><b>◈ صحيح البخاري</b><span>أصح الكتب</span></div>
-    <div class="item-card" onclick="sendCmd('قصص الأنبياء')"><b>◈ قصص الأنبياء</b><span>عبر وعظات</span></div>
-    <div class="item-card" onclick="sendCmd('سيرة الرسول')"><b>◈ السيرة النبوية</b><span>حياة المصطفى</span></div>
-</div>
+    <!-- حصن المسلم + أذكار ذكية -->
+    <div class="section-title"><i class="fas fa-shield-alt"></i> حصن المسلم</div>
+    <div class="grid-container">
+        <div class="item-card" onclick="sendCmd('أذكار الصباح والمساء')"><i class="fas fa-sun"></i><b>أذكار الصباح</b></div>
+        <div class="item-card" onclick="sendCmd('أذكار المساء')"><i class="fas fa-moon"></i><b>أذكار المساء</b></div>
+        <div class="item-card" onclick="sendCmd('أذكار النوم')"><i class="fas fa-bed"></i><b>أذكار النوم</b></div>
+        <div class="item-card" onclick="sendCmd('مسبحة إلكترونية')"><i class="fas fa-pray"></i><b>مسبحة ذكية</b><span>مع عداد</span></div>
+        <div class="item-card" onclick="sendCmd('أدعية مستجابة')"><i class="fas fa-hands-praying"></i><b>جوامع الدعاء</b></div>
+    </div>
 
-<!-- قسم الخدمات الإضافية -->
-<div class="section-title">خدمات إسلامية</div>
-<div class="grid-container">
-    <div class="item-card" onclick="sendCmd('مواقيت الصلاة')"><b>◈ مواقيت الصلاة</b><span>حسب موقعك</span></div>
-    <div class="item-card" onclick="sendCmd('اتجاه القبلة')"><b>◈ القبلة</b><span>تحديد الاتجاه</span></div>
-    <div class="item-card" onclick="sendCmd('الرقية الشرعية')"><b>◈ الرقية الشرعية</b><span>علاج وتحصين</span></div>
-    <div class="item-card" onclick="sendCmd('أسماء الله الحسنى')"><b>◈ أسماء الله</b><span>ومعانيها</span></div>
-</div>
+    <!-- السنة النبوية -->
+    <div class="section-title"><i class="fas fa-scroll"></i> السنة النبوية</div>
+    <div class="grid-container">
+        <div class="item-card" onclick="sendCmd('الأربعون النووية')"><i class="fas fa-list-ol"></i><b>الأربعون النووية</b></div>
+        <div class="item-card" onclick="sendCmd('صحيح البخاري')"><i class="fas fa-book-open"></i><b>صحيح البخاري</b></div>
+        <div class="item-card" onclick="sendCmd('صحيح مسلم')"><i class="fas fa-book-open"></i><b>صحيح مسلم</b></div>
+        <div class="item-card" onclick="sendCmd('حديث اليوم')"><i class="fas fa-gift"></i><b>حديث اليوم</b></div>
+        <div class="item-card" onclick="sendCmd('سيرة النبي كاملة')"><i class="fas fa-user-tie"></i><b>السيرة النبوية</b></div>
+    </div>
 
-<div class="footer-note">نور الله دربك بالإيمان ⚜</div>
+    <!-- خدمات متقدمة -->
+    <div class="section-title"><i class="fas fa-tools"></i> الخدمات الذكية</div>
+    <div class="grid-container">
+        <div class="item-card" onclick="sendCmd('مواقيت الصلاة بدقة')"><i class="fas fa-clock"></i><b>مواقيت الصلاة</b><span>حسب موقعك</span></div>
+        <div class="item-card" onclick="sendCmd('اتجاه القبلة AR')"><i class="fas fa-compass"></i><b>القبلة بالواقع المعزز</b></div>
+        <div class="item-card" onclick="sendCmd('الرقية الشرعية')"><i class="fas fa-hand-holding-heart"></i><b>الرقية الشرعية</b></div>
+        <div class="item-card" onclick="sendCmd('أسماء الله الحسنى')"><i class="fas fa-star"></i><b>أسماء الله الحسنى</b></div>
+        <div class="item-card" onclick="sendCmd('تقويم هجري + أحداث')"><i class="fas fa-calendar-alt"></i><b>التقويم الهجري</b></div>
+    </div>
+
+    <!-- أقسام جديدة (الإضافات الضخمة) -->
+    <div class="section-title"><i class="fas fa-lightbulb"></i> معارف إسلامية</div>
+    <div class="grid-container">
+        <div class="item-card" onclick="sendCmd('فقه المعاملات')"><i class="fas fa-balance-scale"></i><b>فقه المعاملات</b></div>
+        <div class="item-card" onclick="sendCmd('علماء الإسلام')"><i class="fas fa-user-graduate"></i><b>علماء الإسلام</b></div>
+        <div class="item-card" onclick="sendCmd('الإعجاز العلمي في القرآن')"><i class="fas fa-atom"></i><b>الإعجاز العلمي</b></div>
+        <div class="item-card" onclick="sendCmd('قصص الأنبياء مفصلة')"><i class="fas fa-book"></i><b>قصص الأنبياء</b></div>
+        <div class="item-card" onclick="sendCmd('أطفالي الإسلامي')"><i class="fas fa-child"></i><b>قسم الأطفال</b></div>
+        <div class="item-card" onclick="sendCmd('حج وعمرة دليل كامل')"><i class="fas fa-kaaba"></i><b>دليل الحج والعمرة</b></div>
+    </div>
+
+    <div class="footer">
+        <p>﴿وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ﴾</p>
+        <small>نور الإسلام • مدعوم بالذكاء الاصطناعي</small>
+    </div>
 
 <script>
     const tg = window.Telegram.WebApp;
-    tg.expand(); // تمديد الواجهة لتغطية الشاشة
+    tg.expand();
 
     function sendCmd(cmd) {
-        tg.HapticFeedback.impactOccurred('medium'); // اهتزاز خفيف
-        tg.sendData(cmd); // إرسال النص للبوت وإغلاق الموقع
+        tg.HapticFeedback.impactOccurred('heavy');
+        tg.sendData(cmd);
+    }
+
+    function startAIChat() {
+        tg.HapticFeedback.impactOccurred('heavy');
+        tg.sendData("فتح الذكاء الاصطناعي الإسلامي");
+        // يمكنك هنا فتح نافذة chat داخلية لاحقاً
     }
 
     function search() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('item-card');
+        const term = document.getElementById('searchInput').value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.item-card');
         
-        for (let i = 0; i < cards.length; i++) {
-            if (cards[i].innerText.toLowerCase().includes(input)) {
-                cards[i].style.display = "flex";
-            } else {
-                cards[i].style.display = "none";
-            }
-        }
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            card.style.display = text.includes(term) ? 'block' : 'none';
+        });
     }
+
+    // رسالة ترحيبية
+    window.onload = () => {
+        tg.MainButton.setText("الذكاء الاصطناعي");
+        tg.MainButton.show();
+        tg.MainButton.onClick(() => startAIChat());
+    };
 </script>
 </body>
 </html>
